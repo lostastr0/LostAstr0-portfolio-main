@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LostAstr0 - Cybersecurity Student</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Your main CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- tsParticles library -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js" defer></script>
+</head>
+<body>
+  <!-- Black background lowest layer -->
+  <div id="bg-black"></div>
+
+  <!-- Starry sky background -->
+  <div id="tsparticles"></div>
+
+  <!-- Main content centered -->
+  <main class="center-content" role="main">
+    <img src="lostastrologo.png" alt="LostAstr0 Logo" class="avatar-logo" />
+
+    <h1 id="scramble-name" class="main-title" tabindex="0">
+      Hello World,
+      <br />
+      <span id="animated-title-wrap">
+        <span id="animated-title"></span>
+        <span id="animated-title-placeholder" aria-hidden="true"></span>
+      </span>
+    </h1>
+
+    <h2 class="subtitle">Future Cybersecurity Student / Future Ethical Hacker / Learner</h2>
+
+    <nav class="social" aria-label="Social media links">
+      <a href="https://github.com/LostAstr0" aria-label="GitHub" class="social-link" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github" aria-hidden="true"></i>
+      </a>
+      <a href="javascript:void(0)" aria-label="LinkedIn profile in progress" class="social-link" id="linkedin-link" role="button" tabindex="0">
+        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+      </a>
+      <a href="javascript:void(0)" aria-label="Discord username lostastr0" class="social-link" id="discord-link" role="button" tabindex="0" data-clipboard-text="lostastr0">
+        <i class="fab fa-discord" aria-hidden="true"></i>
+        <span class="tooltip-text" id="discord-tooltip">lostastr0</span>
+      </a>
+    </nav>
+  </main>
+
+  <!-- Cake Easter egg -->
+  <div id="cake-easter-egg" style="display:none; position:fixed; bottom:50px; left:50%; transform:translateX(-50%);
+      background:white; color:black; padding:16px; border-radius:18px; box-shadow:0 6px 24px rgba(0,0,0,0.22); z-index:2000;
+      opacity:1; transition: opacity 0.5s ease;" role="alert" aria-live="polite">
+    🎂 Surprise! Here’s your cake!
+  </div>
+  <div id="secret-cake" style="position:fixed; left:0; bottom:0; width:40px; height:40px; cursor:pointer; opacity:0; z-index:1000;"></div>
+
+  <!-- Dev note footer -->
+  <footer class="dev-note-footer" aria-hidden="true">Currently in development</footer>
+
+  <!-- Floating contact button -->
+  <div class="contact-float">
+    <button type="button" aria-label="Email me" tabindex="0" id="contact-button">
+      <span>More Soon... Don't Click</span>
+    </button>
+  </div>
+
+  <!-- External supporting scripts -->
+  <script src="tsparticles-config.js" defer></script>
+  <script src="shooting-stars.js" defer></script>
+  <script src="cake-easter-egg.js" defer></script>
+
+  <!-- Combined main effect handlers -->
+  <script src="effects.js" defer></script>
+</body>
+</html>
