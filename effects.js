@@ -18,9 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const placeholder = document.getElementById('animated-title-placeholder');
 
   if (animatedTitle && placeholder) {
-    const texts = ["Jaineel", "LostAstr0"];
-    const longestText = texts.reduce((a, b) => a.length >= b.length ? a : b);
+    const texts = ['Jaineel', 'LostAstr0'];
+    const longestText = texts.reduce((a, b) => (a.length >= b.length ? a : b));
     placeholder.textContent = longestText;
+
+    // Hide placeholder to prevent duplicated static text
+    placeholder.style.visibility = 'hidden';
+    placeholder.style.opacity = '0';
 
     let currentIndex = 0;
     let charIndex = 0;
@@ -31,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function type() {
       if (charIndex < texts[currentIndex].length) {
-        animatedTitle.textContent += texts[currentIndex].charAt(charIndex);
+        animatedTitle.textContent = texts[currentIndex].substring(0, charIndex + 1);
         charIndex++;
         setTimeout(type, typingSpeed);
       } else {
@@ -54,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 4. Shooting stars canvas animation
-  (function() {
+  (function () {
     const canvas = document.createElement('canvas');
     canvas.style.position = 'fixed';
     canvas.style.top = '0';
@@ -76,7 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
 
     class ShootingStar {
-      constructor() { this.reset(true); }
+      constructor() {
+        this.reset(true);
+      }
       reset(initial = false) {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
@@ -115,29 +121,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const shootingStars = [];
     const maxStars = 3;
-    for(let i = 0; i < maxStars; i++ ) shootingStars.push(new ShootingStar());
+    for (let i = 0; i < maxStars; i++) shootingStars.push(new ShootingStar());
 
     function animate() {
       ctx.clearRect(0, 0, width, height);
-      shootingStars.forEach(star => { star.update(); star.draw(ctx); });
+      shootingStars.forEach((star) => {
+        star.update();
+        star.draw(ctx);
+      });
       requestAnimationFrame(animate);
     }
     animate();
   })();
 
   // 5. tsParticles initialization if available
-  if(window.tsParticles){
-    tsParticles.load("tsparticles", {
-      background: { color: "#000" },
+  if (window.tsParticles) {
+    tsParticles.load('tsparticles', {
+      background: { color: '#000' },
       fpsLimit: 60,
       interactivity: { events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
       particles: {
         number: { value: 80, density: { enable: true, area: 800 } },
-        color: { value: ["#178aff", "#7f74ff", "#21d0ff", "#bae1ff"] },
-        shape: { type: "circle" },
+        color: { value: ['#178aff', '#7f74ff', '#21d0ff', '#bae1ff'] },
+        shape: { type: 'circle' },
         opacity: { value: 1, random: true, anim: { enable: true, speed: 1.5, opacity_min: 0.3, sync: false } },
         size: { value: { min: 1, max: 3 }, random: true, anim: { enable: false } },
-        move: { enable: true, speed: 0.3, direction: "none", random: false, straight: false, outModes: "out" }
+        move: { enable: true, speed: 0.3, direction: 'none', random: false, straight: false, outModes: 'out' },
       },
       detectRetina: true,
     });
@@ -146,34 +155,39 @@ document.addEventListener('DOMContentLoaded', () => {
   // 6. Cake Easter egg popup
   const secretCake = document.getElementById('secret-cake');
   const cakeEgg = document.getElementById('cake-easter-egg');
-  if(secretCake && cakeEgg){
+  if (secretCake && cakeEgg) {
     secretCake.addEventListener('click', () => {
       cakeEgg.style.display = 'block';
       cakeEgg.classList.remove('fade-out');
       setTimeout(() => {
         cakeEgg.classList.add('fade-out');
-        setTimeout(() => { cakeEgg.style.display = 'none'; }, 500);
+        setTimeout(() => {
+          cakeEgg.style.display = 'none';
+        }, 500);
       }, 4000);
     });
   }
 
   // 7. LinkedIn alert
   const linkedinLink = document.getElementById('linkedin-link');
-  if(linkedinLink){
+  if (linkedinLink) {
     linkedinLink.addEventListener('click', () => alert('LinkedIn profile in progress. Stay tuned!'));
   }
 
   // 8. Discord username copy alert
   const discordLink = document.getElementById('discord-link');
-  if(discordLink){
+  if (discordLink) {
     discordLink.addEventListener('click', () => {
       const username = discordLink.getAttribute('data-clipboard-text');
-      if(navigator.clipboard){
-        navigator.clipboard.writeText(username).then(() => {
-          alert(`Discord username "${username}" copied to clipboard!`);
-        }).catch(() => {
-          alert(`Failed to copy. Please copy manually: ${username}`);
-        });
+      if (navigator.clipboard) {
+        navigator.clipboard
+          .writeText(username)
+          .then(() => {
+            alert(`Discord username "${username}" copied to clipboard!`);
+          })
+          .catch(() => {
+            alert(`Failed to copy. Please copy manually: ${username}`);
+          });
       } else {
         alert(`Please copy manually: ${username}`);
       }
@@ -182,9 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 9. Contact button popup
   const contactBtn = document.getElementById('contact-button');
-  if(contactBtn){
+  if (contactBtn) {
     contactBtn.addEventListener('click', () => {
-      alert("Nice try! 😄\n\nThis feature will come later.");
+      alert('Nice try! 😄\n\nThis feature will come later.');
     });
   }
 });
