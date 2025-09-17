@@ -1,11 +1,10 @@
-Dhtml, body {
+html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Space Grotesk', 'Fira Sans', Arial, sans-serif;
   background: transparent;
   color: #fff;
-  overflow: hidden;
   letter-spacing: 0.02em;
   line-height: 1.65;
   transition: background-color 0.4s, color 0.4s;
@@ -30,25 +29,17 @@ Dhtml, body {
 
 /* Main content container */
 .center-content {
-  opacity: 0;
-  transition: opacity 1.2s ease-in-out;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
+  position: relative; /* instead of fixed */
   max-width: 720px;
   width: 95vw;
+  margin: 4rem auto; /* center horizontally with margin auto, add some top margin */
+  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  padding: 3rem 2rem;
   box-sizing: border-box;
-}
-.center-content.visible {
-  opacity: 1;
+  opacity: 1; /* remove fade-in for now or keep with JS */
 }
 
 /* Avatar */
@@ -174,6 +165,63 @@ Dhtml, body {
   opacity: 1;
 }
 
+.projects-section {
+  background-color: #0a0a23;
+  padding: 2rem 1.5rem;
+  margin-top: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #28527a;
+  color: #eee;
+  max-width: 720px;
+  width: 95vw;
+  text-align: left;
+}
+
+.projects-section .section-title {
+  color: #178aff;
+  font-family: 'Fira Sans', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 2em;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 8px #235bb6;
+}
+
+.project-card {
+  background-color: #131345;
+  padding: 1.5rem 1.2rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #28527a;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #178aff44;
+  transition: box-shadow 0.3s ease;
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  box-shadow: 0 0 20px #3ea1ff;
+}
+
+.project-card h3 {
+  margin-top: 0;
+  color: #21d0ff;
+}
+
+.project-card a {
+  display: inline-block;
+  margin-top: 0.8rem;
+  color: #3ea1ff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.project-card a:hover,
+.project-card a:focus {
+  color: #88cbff;
+  outline: none;
+  text-decoration: underline;
+}
+
 /* Contact button */
 .contact-float {
   position: fixed;
@@ -252,4 +300,54 @@ Dhtml, body {
   .social-link { font-size: 16px; }
   .dev-note-footer { font-size: 0.7em; bottom: 100px; right: 5px; }
   .contact-float button { padding: 7px 8px; font-size: 0.7em; border-radius: 16px; max-width: 90vw;}
+}
+
+/* === Added styles for interactive password feedback === */
+
+/* Strength bar colors */
+.strength-very-weak { background-color: #ff4d4d; }   /* Red */
+.strength-weak { background-color: #ff944d; }        /* Orange */
+.strength-medium { background-color: #ffd24d; }      /* Yellow */
+.strength-strong { background-color: #9dff4d; }      /* Lime Green */
+.strength-very-strong { background-color: #4dff88; } /* Green */
+
+/* Feedback list styling */
+#password-feedback ul {
+  padding-left: 1.25em;
+  margin: 0.3em 0 0 0;
+  list-style: none;
+}
+
+#password-feedback li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+
+#password-feedback li .fa-check-circle {
+  color: #4dff88; /* green */
+  margin-right: 8px;
+}
+
+#password-feedback li .fa-exclamation-triangle {
+  color: #ff944d; /* orange */
+  margin-right: 8px;
+}
+
+#password-feedback li .fa-times-circle {
+  color: #ff4d4d; /* red */
+  margin-right: 8px;
+}
+
+/* Color-coded text for feedback */
+.feedback-good {
+  color: #4dff88; /* green */
+}
+
+.feedback-warning {
+  color: #ff944d; /* orange */
+}
+
+.feedback-danger {
+  color: #ff4d4d; /* red */
 }
