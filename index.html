@@ -11,7 +11,7 @@
   <!-- Font Awesome for social & feedback icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <!-- Mmain CSS -->
+  <!-- Main CSS -->
   <link rel="stylesheet" href="styles.css" />
 
   <!-- tsParticles library -->
@@ -55,6 +55,21 @@
       </nav>
     </section>
 
+    <!-- Spotify Now Playing Section -->
+<section id="music-now-playing" class="music-section" tabindex="0" aria-label="Currently playing music from Spotify">
+  <h2 class="section-title">Now Playing</h2>
+  <iframe 
+    src="https://widget.nowplaying.site/JTfgYlr8xMhG80hn" 
+    width="600" 
+    height="150" 
+    frameborder="0" 
+    allowtransparency="true" 
+    allow="encrypted-media"
+    style="border-radius: 18px; box-shadow: 0 0 20px #178aff88; display: block; margin: 0 auto;"
+  ></iframe>
+</section>
+
+
     <!-- Projects section -->
     <section id="projects" class="projects-section" tabindex="0" aria-label="Projects portfolio section">
       <h2 class="section-title">Projects</h2>
@@ -64,19 +79,67 @@
         <p>A Python tool to analyze and score password security, demonstrating cybersecurity basics and Python programming.</p>
         <p><strong>Technologies:</strong> Python, Cybersecurity Concepts</p>
         <a href="https://github.com/LostAstr0/password-strength-checker" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-      </div>
+        <!-- Interactive demo section -->
+        <div id="password-demo" class="project-demo" style="margin-top: 2rem;">
+          <h4>Try the Password Strength Checker! Don't worry it doesn't keylog.</h4>
+          <input type="password" id="password-input" placeholder="Enter a password" autocomplete="off" aria-label="Password input" style="width: 100%; padding: 12px; font-size: 1em; border-radius: 6px; border: 1px solid #28527a; background-color: #131345; color: #eee;" />
+          
+          <div id="strength-bar-container" style="width: 100%; height: 12px; background: #222444; border-radius: 6px; margin-top: 12px;">
+            <div id="strength-bar" style="height: 100%; width: 0%; border-radius: 6px; transition: width 0.3s ease;"></div>
+          </div>
 
-      <!-- Interactive demo section -->
-      <div id="password-demo" class="project-demo" style="margin-top: 2rem;">
-        <h4>Try the Password Strength Checker</h4>
-        <input type="password" id="password-input" placeholder="Enter a password" autocomplete="off" aria-label="Password input" style="width: 100%; padding: 12px; font-size: 1em; border-radius: 6px; border: 1px solid #28527a; background-color: #131345; color: #eee;" />
-        
-        <div id="strength-bar-container" style="width: 100%; height: 12px; background: #222444; border-radius: 6px; margin-top: 12px;">
-          <div id="strength-bar" style="height: 100%; width: 0%; border-radius: 6px; transition: width 0.3s ease;"></div>
+          <div id="password-feedback" aria-live="polite" role="region" style="margin-top: 12px; min-height: 4em; font-size: 0.9em; color: #3ea1ff;"></div>
         </div>
-
-        <div id="password-feedback" aria-live="polite" role="region" style="margin-top: 12px; min-height: 4em; font-size: 0.9em; color: #3ea1ff;"></div>
       </div>
+    </section>
+
+    <!-- Tech & Learning Section -->
+    <section id="tech-learning" class="tech-learning-section" tabindex="0" aria-label="Technical skills, learning, and goals">
+      <h2 class="section-title">
+        <i class="fas fa-tools" aria-hidden="true" title="Tools"></i> Stuff I'm Comfortable With
+      </h2>
+      <ul class="skills-badges">
+        <li class="badge python"><i class="fab fa-python" aria-hidden="true"></i> Python</li>
+        <li class="badge javascript"><i class="fab fa-js-square" aria-hidden="true"></i> JavaScript</li>
+        <li class="badge html5"><i class="fab fa-html5" aria-hidden="true"></i> HTML5</li>
+        <li class="badge css3"><i class="fab fa-css3-alt" aria-hidden="true"></i> CSS3</li>
+        <li class="badge php"><i class="fab fa-php" aria-hidden="true"></i> PHP</li>
+        <li class="badge sql"><i class="fas fa-database" aria-hidden="true"></i> SQL</li>
+      </ul>
+
+      <hr class="section-divider" />
+
+      <h2 class="section-title">
+        <i class="fas fa-spinner" aria-hidden="true" title="Currently Learning"></i> Currently Figuring Out
+      </h2>
+      <ul class="skills-badges">
+        <li class="badge linux"><i class="fab fa-linux" aria-hidden="true"></i> Linux</li>
+        <li class="badge bash"><i class="fas fa-terminal" aria-hidden="true"></i> Bash</li>
+        <li class="badge nmap"><i class="fas fa-network-wired" aria-hidden="true"></i> Nmap</li>
+        <li class="badge wireshark"><i class="fas fa-shield-alt" aria-hidden="true"></i> Wireshark</li>
+        <li class="badge burp"><i class="fas fa-bug" aria-hidden="true"></i> Burp Suite</li>
+        <li class="badge tryhackme"><i class="fas fa-hat-wizard" aria-hidden="true"></i> TryHackMe</li>
+        <li class="badge hackthebox"><i class="fas fa-lock" aria-hidden="true"></i> Hack The Box</li>
+      </ul>
+
+      <hr class="section-divider" />
+
+      <h2 class="section-title">
+        <i class="fas fa-bullseye" aria-hidden="true" title="Learning Goals"></i> Learning Goals
+      </h2>
+      <ul class="learning-goals">
+        <li><input type="checkbox" disabled /> Get comfy with Linux basics</li>
+        <li><input type="checkbox" disabled /> Write Bash scripts without Googling every 5 mins</li>
+        <li><input type="checkbox" disabled /> Build small security-related projects</li>
+        <li><input type="checkbox" disabled /> Learn data structures & algorithms in Python</li>
+        <li><input type="checkbox" disabled /> Work towards <strong>CompTIA Security+</strong></li>
+        <li><input type="checkbox" disabled /> Master Linux shell scripting (Bash & PowerShell)</li>
+        <li><input type="checkbox" disabled /> Understand networking fundamentals deeply</li>
+        <li><input type="checkbox" disabled /> Learn penetration testing methodologies and tools</li>
+        <li><input type="checkbox" disabled /> Explore web security concepts (OWASP)</li>
+        <li><input type="checkbox" disabled /> Get familiar with cloud security basics</li>
+        <li><input type="checkbox" disabled /> Practice incident response & digital forensics basics</li>
+      </ul>
     </section>
   </main>
 

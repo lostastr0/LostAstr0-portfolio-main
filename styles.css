@@ -424,3 +424,128 @@ section {
 .feedback-danger {
   color: #ff4d4d;
 }
+.tech-learning-section {
+  background: linear-gradient(135deg, #0b0d17, #111235 90%);
+  border-radius: 18px;
+  border: 1.5px solid #234067;
+  box-shadow: 0 0 48px 0 #178aff44;
+  color: #d0dfff;
+  max-width: 720px;
+  width: 100%;
+  padding: 2rem 2.25rem;
+  margin: 4rem auto;
+  font-family: 'Fira Sans', Arial, sans-serif;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #21d0ff;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 2px solid #235bb6;
+  padding-bottom: 0.25rem;
+  user-select: none;
+}
+
+.section-title i {
+  font-size: 1.5rem;
+  color: #178aff;
+}
+
+.skills-badges {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.2rem;
+  padding-left: 0;
+  margin-bottom: 2rem;
+}
+
+.skills-badges li {
+  background-color: #131843;
+  padding: 0.5rem 1.15rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #bcd4ff;
+  user-select: none;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow:
+    0 0 6px #178affaa,
+    inset 0 0 4px #2e65ff55;
+  transition: background-color 0.25s ease;
+}
+
+.skills-badges li i {
+  font-size: 1.3em;
+  color: #21d0ff;
+  filter: drop-shadow(0 0 2px #1a9bffcc);
+}
+
+.section-divider {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #178affcc, transparent);
+  margin: 2rem 0;
+  border-radius: 2px;
+}
+
+.learning-goals {
+  list-style: none;
+  padding-left: 0;
+  color: #ccd8ffcc;
+  font-weight: 500;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.learning-goals li label {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  user-select: none;
+  cursor: default;
+}
+
+.learning-goals input[type="checkbox"] {
+  accent-color: #178aff;
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: not-allowed;
+  outline-offset: 2px;
+  box-shadow: 0 0 6px #178aff88;
+  border-radius: 6px;
+}
+
+.music-section {
+  background: linear-gradient(135deg, #0b0d17, #111235 90%);
+  border-radius: 18px;
+  border: 1.5px solid #234067;
+  box-shadow: 0 0 48px 0 #178aff33;
+  color: #d0dfff;
+  max-width: 720px;
+  width: 100%;
+  padding: 2rem 2rem 2.5rem;
+  margin: 3rem auto;
+  text-align: center;
+  font-family: 'Fira Sans', Arial, sans-serif;
+}
+
+.music-section .section-title {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #178aff;
+  text-shadow: 0 0 10px #235bb6;
+  user-select: none;
+}
+
