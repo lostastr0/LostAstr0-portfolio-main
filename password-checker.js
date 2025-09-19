@@ -115,8 +115,15 @@ function updatePasswordFeedback() {
   const level = getStrengthLevel(score);
   const feedback = generateFeedback(pwd, score);
 
+  // Decide class for strength label colour
+  let labelClass = "feedback-very-weak";
+  if (score >= 80) labelClass = "feedback-very-strong";
+  else if (score >= 60) labelClass = "feedback-strong";
+  else if (score >= 40) labelClass = "feedback-medium";
+  else if (score >= 20) labelClass = "feedback-weak";
+
   // Build feedback HTML using Font Awesome icons and color coded list items
-  let html = `<strong>Strength: ${level} (${score}/100)</strong><ul>`;
+  let html = `<strong class="${labelClass}">Strength: ${level} (${score}/100)</strong><ul>`;
   for (const item of feedback) {
     html += `<li class="feedback-${item.type}"><i class="fas ${item.icon}" aria-hidden="true" style="margin-right: 8px;"></i>${item.text}</li>`;
   }
@@ -126,11 +133,8 @@ function updatePasswordFeedback() {
 
   // Update strength bar
   strengthBar.style.width = score + "%";
-
-  // Remove existing strength classes
   strengthBar.className = "";
 
-  // Add class based on score
   if (score >= 80) strengthBar.classList.add("strength-very-strong");
   else if (score >= 60) strengthBar.classList.add("strength-strong");
   else if (score >= 40) strengthBar.classList.add("strength-medium");

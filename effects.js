@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Fade-in main content
+  // Centralized helper to safely add event listeners if element exists
+  function addSafeEventListener(el, event, handler) {
+    if (el) el.addEventListener(event, handler);
+  }
+
+  // 1. Fade-in main content with class toggle for CSS (add .visible in CSS)
   const content = document.querySelector('.center-content');
   if (content) requestAnimationFrame(() => content.classList.add('visible'));
 
@@ -22,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const longestText = texts.reduce((a, b) => (a.length >= b.length ? a : b));
     placeholder.textContent = longestText;
 
-    // Hide placeholder to prevent duplicated static text
     placeholder.style.visibility = 'hidden';
     placeholder.style.opacity = '0';
 
@@ -33,106 +37,131 @@ document.addEventListener('DOMContentLoaded', () => {
     const delayAfterTyping = 1400;
     const delayAfterErasing = 600;
 
-    function type() {
-      if (charIndex < texts[currentIndex].length) {
-        animatedTitle.textContent = texts[currentIndex].substring(0, charIndex + 1);
-        charIndex++;
-        setTimeout(type, typingSpeed);
-      } else {
-        setTimeout(erase, delayAfterTyping);
-      }
+    // Helper for delaying with Promises 
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    function erase() {
-      if (charIndex > 0) {
-        animatedTitle.textContent = texts[currentIndex].substring(0, charIndex - 1);
-        charIndex--;
-        setTimeout(erase, erasingSpeed);
-      } else {
+    async function typeEraseCycle() {
+      while (true) {
+        // Typing
+        while (charIndex < texts[currentIndex].length) {
+          animatedTitle.textContent = texts[currentIndex].substring(0, charIndex + 1);
+          charIndex++;
+          await delay(typingSpeed);
+        }
+        await delay(delayAfterTyping);
+
+        // Erasing
+        while (charIndex > 0) {
+          animatedTitle.textContent = texts[currentIndex].substring(0, charIndex - 1);
+          charIndex--;
+          await delay(erasingSpeed);
+        }
         currentIndex = (currentIndex + 1) % texts.length;
-        setTimeout(type, delayAfterErasing);
+        await delay(delayAfterErasing);
       }
     }
 
-    type();
+    typeEraseCycle();
   }
 
-  // 4. Shooting stars canvas animation
-  (function () {
-    const canvas = document.createElement('canvas');
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '-1';
-    document.body.appendChild(canvas);
+  // 4. Shooting stars canvas animation encapsulated in a class for modularity
 
-    const ctx = canvas.getContext('2d');
-    let width, height;
+  class ShootingStarsCanvas {
+    constructor() {
+      this.canvas = document.createElement('canvas');
+      this.ctx = this.canvas.getContext('2d');
+      this.shootingStars = [];
+      this.maxStars = 3;
+      this.width = 0;
+      this.height = 0;
 
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      this.setupCanvas();
+      this.createStars();
+      this.animate();
+
+      window.addEventListener('resize', () => this.resize());
     }
-    window.addEventListener('resize', resize);
-    resize();
 
-    class ShootingStar {
-      constructor() {
-        this.reset(true);
-      }
-      reset(initial = false) {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.len = Math.random() * 80 + 50;
-        this.speed = Math.random() * (3.0 - 1.5) + 1.5;
-        this.angle = Math.PI / 4;
-        this.opacity = initial ? Math.random() : 0;
-        this.fadeIn = true;
-        this.fadeSpeed = 0.01;
-      }
-      update() {
-        this.x += this.speed * Math.cos(this.angle);
-        this.y += this.speed * Math.sin(this.angle);
-        if (this.fadeIn) {
-          this.opacity += this.fadeSpeed;
-          if (this.opacity >= 1) this.fadeIn = false;
-        } else {
-          this.opacity -= this.fadeSpeed;
-        }
-        if (this.opacity <= 0 || this.x > width || this.y > height) {
-          this.reset();
-        }
-      }
-      draw(ctx) {
-        ctx.strokeStyle = `rgba(23, 138, 255, ${this.opacity})`;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(
-          this.x - this.len * Math.cos(this.angle),
-          this.y - this.len * Math.sin(this.angle)
-        );
-        ctx.stroke();
+    setupCanvas() {
+      this.canvas.style.position = 'fixed';
+      this.canvas.style.top = '0';
+      this.canvas.style.left = '0';
+      this.canvas.style.width = '100%';
+      this.canvas.style.height = '100%';
+      this.canvas.style.pointerEvents = 'none';
+      this.canvas.style.zIndex = '-1';
+      document.body.appendChild(this.canvas);
+      this.resize();
+    }
+
+    resize() {
+      this.width = this.canvas.width = window.innerWidth;
+      this.height = this.canvas.height = window.innerHeight;
+    }
+
+    createStars() {
+      for (let i = 0; i < this.maxStars; i++) {
+        this.shootingStars.push(new ShootingStar(this));
       }
     }
 
-    const shootingStars = [];
-    const maxStars = 3;
-    for (let i = 0; i < maxStars; i++) shootingStars.push(new ShootingStar());
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      shootingStars.forEach((star) => {
+    animate() {
+      this.ctx.clearRect(0, 0, this.width, this.height);
+      this.shootingStars.forEach(star => {
         star.update();
-        star.draw(ctx);
+        star.draw(this.ctx);
       });
-      requestAnimationFrame(animate);
+      requestAnimationFrame(() => this.animate());
     }
-    animate();
-  })();
+  }
+
+  class ShootingStar {
+    constructor(canvasInstance) {
+      this.canvasInstance = canvasInstance;
+      this.reset(true);
+    }
+
+    reset(initial = false) {
+      this.x = Math.random() * this.canvasInstance.width;
+      this.y = Math.random() * this.canvasInstance.height;
+      this.len = Math.random() * 80 + 50;
+      this.speed = Math.random() * (3.0 - 1.5) + 1.5;
+      this.angle = Math.PI / 4;
+      this.opacity = initial ? Math.random() : 0;
+      this.fadeIn = true;
+      this.fadeSpeed = 0.01;
+    }
+
+    update() {
+      this.x += this.speed * Math.cos(this.angle);
+      this.y += this.speed * Math.sin(this.angle);
+      if (this.fadeIn) {
+        this.opacity += this.fadeSpeed;
+        if (this.opacity >= 1) this.fadeIn = false;
+      } else {
+        this.opacity -= this.fadeSpeed;
+      }
+      if (this.opacity <= 0 || this.x > this.canvasInstance.width || this.y > this.canvasInstance.height) {
+        this.reset();
+      }
+    }
+
+    draw(ctx) {
+      ctx.strokeStyle = `rgba(23, 138, 255, ${this.opacity})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(
+        this.x - this.len * Math.cos(this.angle),
+        this.y - this.len * Math.sin(this.angle)
+      );
+      ctx.stroke();
+    }
+  }
+
+  new ShootingStarsCanvas();
 
   // 5. tsParticles initialization if available
   if (window.tsParticles) {
@@ -156,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const secretCake = document.getElementById('secret-cake');
   const cakeEgg = document.getElementById('cake-easter-egg');
   if (secretCake && cakeEgg) {
-    secretCake.addEventListener('click', () => {
+    addSafeEventListener(secretCake, 'click', () => {
       cakeEgg.style.display = 'block';
       cakeEgg.classList.remove('fade-out');
       setTimeout(() => {
@@ -168,37 +197,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. LinkedIn alert
+  // 7. LinkedIn alert with toast instead of alert
   const linkedinLink = document.getElementById('linkedin-link');
   if (linkedinLink) {
-    linkedinLink.addEventListener('click', () => alert('LinkedIn profile in progress. Stay tuned!'));
+    addSafeEventListener(linkedinLink, 'click', () => {
+      showToast('LinkedIn profile in progress. Stay tuned!');
+    });
   }
 
-  // 8. Discord username copy alert
+  // 8. Discord username copy with toast instead of alert
   const discordLink = document.getElementById('discord-link');
   if (discordLink) {
-    discordLink.addEventListener('click', () => {
+    addSafeEventListener(discordLink, 'click', () => {
       const username = discordLink.getAttribute('data-clipboard-text');
       if (navigator.clipboard) {
-        navigator.clipboard
-          .writeText(username)
-          .then(() => {
-            alert(`Discord username "${username}" copied to clipboard!`);
-          })
-          .catch(() => {
-            alert(`Failed to copy. Please copy manually: ${username}`);
-          });
+        navigator.clipboard.writeText(username)
+          .then(() => showToast(`Discord username "${username}" copied to clipboard!`))
+          .catch(() => showToast(`Failed to copy. Please copy manually: ${username}`));
       } else {
-        alert(`Please copy manually: ${username}`);
+        showToast(`Please copy manually: ${username}`);
       }
     });
   }
 
-  // 9. Contact button popup
-  const contactBtn = document.getElementById('contact-button');
-  if (contactBtn) {
-    contactBtn.addEventListener('click', () => {
-      alert('Nice try! 😄\n\nThis feature will come later.');
+  // 9. Contact button popup replaced with disabled button (no click handler needed)
+
+  // Simple toast function for demo purposes
+  function showToast(message) {
+    let toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.background = '#178aff';
+    toast.style.color = '#fff';
+    toast.style.padding = '10px 18px';
+    toast.style.borderRadius = '6px';
+    toast.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+    toast.style.zIndex = 3000;
+    toast.style.fontSize = '1rem';
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => {
+      toast.style.opacity = '1';
     });
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => {
+        document.body.removeChild(toast);
+      }, 300);
+    }, 3000);
   }
 });

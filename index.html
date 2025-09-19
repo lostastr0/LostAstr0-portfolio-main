@@ -4,11 +4,16 @@
   <meta charset="UTF-8" />
   <title>LostAstr0 - Cybersecurity Student</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="LostAstr0 - Future Cybersecurity Student and Ethical Hacker. Portfolio showcasing projects, skills, and learning goals." />
+  <meta name="author" content="LostAstr0" />
+
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Font Awesome for social & feedback icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <!-- Main CSS -->
@@ -18,140 +23,133 @@
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js" defer></script>
 </head>
 <body>
-  <!-- Black background lowest layer -->
-  <div id="bg-black"></div>
 
-  <!-- Starry sky background -->
-  <div id="tsparticles"></div>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Main content container with scroll snap -->
-  <main class="center-content" role="main">
-    <!-- Hero section -->
-    <section id="hero" class="hero-section" tabindex="0" aria-label="Introduction section">
+  <!-- Starry background layers -->
+  <div id="bg-black" aria-hidden="true"></div>
+  <div id="tsparticles" aria-hidden="true"></div>
+
+  <!-- Main content -->
+  <main id="main-content" role="main">
+    <!-- Hero section (no box) -->
+    <section id="hero" class="hero-section" aria-label="Introduction section">
       <img src="lostastrologo.png" alt="LostAstr0 Logo" class="avatar-logo" />
-
-      <h1 id="scramble-name" class="main-title" tabindex="0">
+      <h1 id="scramble-name" class="main-title">
         Hello World,
         <br />
         <span id="animated-title-wrap">
-          <span id="animated-title"></span>
+          <span id="animated-title" aria-live="polite" aria-atomic="true"></span>
           <span id="animated-title-placeholder" aria-hidden="true"></span>
         </span>
       </h1>
-
       <h2 class="subtitle">Future Cybersecurity Student / Future Ethical Hacker / Learner</h2>
 
       <nav class="social" aria-label="Social media links">
         <a href="https://github.com/LostAstr0" aria-label="GitHub" class="social-link" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-github" aria-hidden="true"></i>
         </a>
-        <a href="javascript:void(0)" aria-label="LinkedIn profile in progress" class="social-link" id="linkedin-link" role="button" tabindex="0">
+        <a href="javascript:void(0)" aria-label="LinkedIn profile in progress" class="social-link" id="linkedin-link" role="button">
           <i class="fab fa-linkedin-in" aria-hidden="true"></i>
         </a>
-        <a href="javascript:void(0)" aria-label="Discord username lostastr0" class="social-link" id="discord-link" role="button" tabindex="0" data-clipboard-text="lostastr0">
+        <a href="javascript:void(0)" aria-label="Discord username lostastr0" class="social-link" id="discord-link" role="button" data-clipboard-text="lostastr0">
           <i class="fab fa-discord" aria-hidden="true"></i>
           <span class="tooltip-text" id="discord-tooltip">lostastr0</span>
         </a>
       </nav>
     </section>
 
-    <!-- Projects section -->
-    <section id="projects" class="projects-section" tabindex="0" aria-label="Projects portfolio section">
-      <h2 class="section-title">Projects</h2>
-      
-      <div class="project-card" role="article">
-        <h3>Password Strength Checker</h3>
-        <p>A Python tool to analyze and score password security, demonstrating cybersecurity basics and Python programming.</p>
-        <p><strong>Technologies:</strong> Python, Cybersecurity Concepts</p>
-        <a href="https://github.com/LostAstr0/password-strength-checker" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-        <!-- Interactive demo section -->
-        <div id="password-demo" class="project-demo" style="margin-top: 2rem;">
-          <h4>Try the Password Strength Checker! Don't worry it doesn't keylog.</h4>
-          <input type="password" id="password-input" placeholder="Enter a password" autocomplete="off" aria-label="Password input" style="width: 100%; padding: 12px; font-size: 1em; border-radius: 6px; border: 1px solid #28527a; background-color: #131345; color: #eee;" />
-          
-          <div id="strength-bar-container" style="width: 100%; height: 12px; background: #222444; border-radius: 6px; margin-top: 12px;">
-            <div id="strength-bar" style="height: 100%; width: 0%; border-radius: 6px; transition: width 0.3s ease;"></div>
-          </div>
+    <!-- Projects section (card inside section) -->
+    <section id="projects" class="projects-section" aria-label="Projects portfolio section">
+      <div class="section-card">
+        <h2 class="section-title">Projects</h2>
 
-          <div id="password-feedback" aria-live="polite" role="region" style="margin-top: 12px; min-height: 4em; font-size: 0.9em; color: #3ea1ff;"></div>
-        </div>
+        <article class="project-card" role="article">
+          <h3>Password Strength Checker</h3>
+          <p>A Python tool to analyze and score password security, demonstrating cybersecurity basics and Python programming.</p>
+          <p><strong>Technologies:</strong> Python, Cybersecurity Concepts</p>
+          <a href="https://github.com/LostAstr0/password-strength-checker" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+
+          <div id="password-demo" class="project-demo">
+            <h4>Try the Password Strength Checker! Don't worry it doesn't keylog.</h4>
+
+            <input
+              type="password"
+              id="password-input"
+              placeholder="Enter a password"
+              autocomplete="off"
+              aria-label="Password input"
+            />
+
+            <div id="strength-bar-container">
+              <div id="strength-bar"></div>
+            </div>
+
+            <div id="password-feedback" aria-live="polite" role="region"></div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- Tech & Learning Section -->
-    <section id="tech-learning" class="tech-learning-section" tabindex="0" aria-label="Technical skills, learning, and goals">
-      <h2 class="section-title">
-        <i class="fas fa-tools" aria-hidden="true" title="Tools"></i> Stuff I'm Comfortable With
-      </h2>
-      <ul class="skills-badges">
-        <li class="badge python"><i class="fab fa-python" aria-hidden="true"></i> Python</li>
-        <li class="badge javascript"><i class="fab fa-js-square" aria-hidden="true"></i> JavaScript</li>
-        <li class="badge html5"><i class="fab fa-html5" aria-hidden="true"></i> HTML5</li>
-        <li class="badge css3"><i class="fab fa-css3-alt" aria-hidden="true"></i> CSS3</li>
-        <li class="badge php"><i class="fab fa-php" aria-hidden="true"></i> PHP</li>
-        <li class="badge sql"><i class="fas fa-database" aria-hidden="true"></i> SQL</li>
-      </ul>
+    <!-- Tech & Learning section (card inside section) -->
+    <section id="tech-learning" class="tech-learning-section" aria-label="Technical skills, learning, and goals">
+      <div class="section-card">
+        <h2 class="section-title">
+          <i class="fas fa-tools" aria-hidden="true" title="Tools"></i> Stuff I'm Comfortable With
+        </h2>
+        <ul class="skills-badges" aria-label="Skills I am comfortable with">
+          <li class="badge python"><i class="fab fa-python" aria-hidden="true"></i> Python</li>
+          <li class="badge javascript"><i class="fab fa-js-square" aria-hidden="true"></i> JavaScript</li>
+          <li class="badge html5"><i class="fab fa-html5" aria-hidden="true"></i> HTML5</li>
+          <li class="badge css3"><i class="fab fa-css3-alt" aria-hidden="true"></i> CSS3</li>
+          <li class="badge php"><i class="fab fa-php" aria-hidden="true"></i> PHP</li>
+          <li class="badge sql"><i class="fas fa-database" aria-hidden="true"></i> SQL</li>
+        </ul>
 
-      <hr class="section-divider" />
+        <hr class="section-divider" />
 
-      <h2 class="section-title">
-        <i class="fas fa-spinner" aria-hidden="true" title="Currently Learning"></i> Currently Figuring Out
-      </h2>
-      <ul class="skills-badges">
-        <li class="badge linux"><i class="fab fa-linux" aria-hidden="true"></i> Linux</li>
-        <li class="badge bash"><i class="fas fa-terminal" aria-hidden="true"></i> Bash</li>
-        <li class="badge nmap"><i class="fas fa-network-wired" aria-hidden="true"></i> Nmap</li>
-        <li class="badge wireshark"><i class="fas fa-shield-alt" aria-hidden="true"></i> Wireshark</li>
-        <li class="badge burp"><i class="fas fa-bug" aria-hidden="true"></i> Burp Suite</li>
-        <li class="badge tryhackme"><i class="fas fa-hat-wizard" aria-hidden="true"></i> TryHackMe</li>
-        <li class="badge hackthebox"><i class="fas fa-lock" aria-hidden="true"></i> Hack The Box</li>
-      </ul>
+        <h2 class="section-title">
+          <i class="fas fa-spinner" aria-hidden="true" title="Currently Learning"></i> Currently Figuring Out
+        </h2>
+        <ul class="skills-badges" aria-label="Skills currently learning">
+          <li class="badge linux"><i class="fab fa-linux" aria-hidden="true"></i> Linux</li>
+          <li class="badge bash"><i class="fas fa-terminal" aria-hidden="true"></i> Bash</li>
+          <li class="badge nmap"><i class="fas fa-network-wired" aria-hidden="true"></i> Nmap</li>
+          <li class="badge wireshark"><i class="fas fa-shield-alt" aria-hidden="true"></i> Wireshark</li>
+          <li class="badge burp"><i class="fas fa-bug" aria-hidden="true"></i> Burp Suite</li>
+          <li class="badge tryhackme"><i class="fas fa-hat-wizard" aria-hidden="true"></i> TryHackMe</li>
+          <li class="badge hackthebox"><i class="fas fa-lock" aria-hidden="true"></i> Hack The Box</li>
+        </ul>
 
-      <hr class="section-divider" />
+        <hr class="section-divider" />
 
-      <h2 class="section-title">
-        <i class="fas fa-bullseye" aria-hidden="true" title="Learning Goals"></i> Learning Goals
-      </h2>
-      <ul class="learning-goals">
-        <li><input type="checkbox" disabled /> Get comfy with Linux basics</li>
-        <li><input type="checkbox" disabled /> Write Bash scripts without Googling every 5 mins</li>
-        <li><input type="checkbox" disabled /> Build small security-related projects</li>
-        <li><input type="checkbox" disabled /> Learn data structures & algorithms in Python</li>
-        <li><input type="checkbox" disabled /> Work towards <strong>CompTIA Security+</strong></li>
-        <li><input type="checkbox" disabled /> Master Linux shell scripting (Bash & PowerShell)</li>
-        <li><input type="checkbox" disabled /> Understand networking fundamentals deeply</li>
-        <li><input type="checkbox" disabled /> Learn penetration testing methodologies and tools</li>
-        <li><input type="checkbox" disabled /> Explore web security concepts (OWASP)</li>
-        <li><input type="checkbox" disabled /> Get familiar with cloud security basics</li>
-        <li><input type="checkbox" disabled /> Practice incident response & digital forensics basics</li>
-      </ul>
+        <h2 class="section-title">
+          <i class="fas fa-bullseye" aria-hidden="true" title="Learning Goals"></i> Learning Goals
+        </h2>
+        <ul class="learning-goals" aria-label="Learning goals">
+          <li><input type="checkbox" disabled aria-readonly="true" /> Get comfy with Linux basics</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Write Bash scripts without Googling every 5 mins</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Build small security-related projects</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Learn data structures & algorithms in Python</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Work towards <strong>CompTIA Security+</strong></li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Master Linux shell scripting (Bash & PowerShell)</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Understand networking fundamentals deeply</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Learn penetration testing methodologies and tools</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Explore web security concepts (OWASP)</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Get familiar with cloud security basics</li>
+          <li><input type="checkbox" disabled aria-readonly="true" /> Practice incident response & digital forensics basics</li>
+        </ul>
+      </div>
     </section>
   </main>
 
-  <!-- Cake Easter egg -->
-  <div id="cake-easter-egg" style="display:none; position:fixed; bottom:50px; left:50%; transform:translateX(-50%);
-      background:white; color:black; padding:16px; border-radius:18px; box-shadow:0 6px 24px rgba(0,0,0,0.22); z-index:2000;
-      opacity:1; transition: opacity 0.5s ease;" role="alert" aria-live="polite">
-    🎂 Surprise! Here’s your cake!
-  </div>
-  <div id="secret-cake" style="position:fixed; left:0; bottom:0; width:40px; height:40px; cursor:pointer; opacity:0; z-index:1000;"></div>
-
-  <!-- Dev note footer -->
-  <footer class="dev-note-footer" aria-hidden="true">Currently in development</footer>
-
-  <!-- Floating contact button -->
-  <div class="contact-float">
-    <button type="button" aria-label="Email me" tabindex="0" id="contact-button">
-      <span>More Soon... Don't Click</span>
-    </button>
-  </div>
+  <!-- Footer -->
+  <footer class="dev-note-footer">Currently in development</footer>
 
   <!-- External supporting scripts -->
   <script src="tsparticles-config.js" defer></script>
   <script src="shooting-stars.js" defer></script>
   <script src="cake-easter-egg.js" defer></script>
-
-  <!-- Combined main effect handlers -->
   <script src="effects.js" defer></script>
   <script src="password-checker.js" defer></script>
 </body>
